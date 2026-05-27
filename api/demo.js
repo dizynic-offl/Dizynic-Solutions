@@ -30,9 +30,10 @@ export default async function handler(req, res) {
     name,
     email,
     phone,
-    service,
-    urgency,
-    message
+    product_interest,
+    company,
+    company_size,
+    preferred_demo_time
     } = req.body;
 
     // BASIC VALIDATION
@@ -48,15 +49,16 @@ export default async function handler(req, res) {
     // SAVE TO SUPABASE
 
     const { error } = await supabase
-      .from("consultancy_submissions")
+      .from("demo_bookings")
       .insert([
         {
         name,
         email,
         phone,
-        service,
-        urgency,
-        message
+        product_interest,
+        company,
+        company_size,
+        preferred_demo_time
         }
       ]);
 
@@ -74,25 +76,25 @@ export default async function handler(req, res) {
 
       to: "dizynic@gmail.com",
 
-      subject: "New Consultation Booking",
+      subject: "New Demo Booking",
 
-      html: `
-        <h2>New Consultation Booking</h2>
+     html: `
+    <h2>New Demo Booking</h2>
 
-        <p><strong>Name:</strong> ${name}</p>
+    <p><strong>Name:</strong> ${name}</p>
 
-        <p><strong>Email:</strong> ${email}</p>
+    <p><strong>Email:</strong> ${email}</p>
 
-        <p><strong>Phone:</strong> ${phone}</p>
+    <p><strong>Phone:</strong> ${phone}</p>
 
-        <p><strong>Service:</strong> ${service}</p>
+    <p><strong>Product Interested In:</strong> ${product_interest}</p>
 
-        <p><strong>Urgency:</strong> ${urgency}</p>
+    <p><strong>Company:</strong> ${company}</p>
 
-        <p><strong>Message:</strong></p>
+    <p><strong>Company Size:</strong> ${company_size}</p>
 
-        <p>${message}</p>
-      `
+    <p><strong>Preferred Demo Time:</strong> ${preferred_demo_time}</p>
+    `
     });
 
     // SUCCESS RESPONSE
