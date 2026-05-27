@@ -156,6 +156,8 @@ if(testimonialSlider && prevBtn && nextBtn){
 // PROJECT MODAL
 // =========================================
 
+let currentFormMode = "project";
+
 const projectModal = document.querySelector(".project-modal");
 
 const projectModalOverlay = document.querySelector(".project-modal-overlay");
@@ -176,6 +178,12 @@ if(projectModal && projectModalTriggers.length){
 
       const modalTitle =
         trigger.dataset.modalTitle;
+
+      const modalType =
+        trigger.dataset.modalType;
+
+      currentFormMode =
+        modalType || "project";  
 
       const modalButton =
         trigger.dataset.modalButton;
@@ -622,8 +630,13 @@ if(projectForm){
 
         // SEND REQUEST
 
+        const apiEndpoint =
+          currentFormMode === "consultation"
+            ? "/api/consultation"
+            : "/api/contact";
+
         const response = await fetch(
-          "/api/contact",
+          apiEndpoint,
           {
             method:"POST",
 
