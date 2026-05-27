@@ -707,3 +707,172 @@ if(projectForm){
   );
 
 }
+
+
+
+
+
+
+
+
+
+// =========================================
+// DEMO FORM SUBMISSION
+// =========================================
+
+const demoForm =
+  document.getElementById("demoForm");
+
+if(demoForm){
+
+  demoForm.addEventListener(
+    "submit",
+    async (e)=>{
+
+      e.preventDefault();
+
+      // GET VALUES
+
+      const name =
+        document.getElementById(
+          "demoName"
+        ).value.trim();
+
+      const email =
+        document.getElementById(
+          "demoEmail"
+        ).value.trim();
+
+      const phone =
+        document.getElementById(
+          "demoPhone"
+        ).value.trim();
+
+      const product_interest =
+        document.getElementById(
+          "demoProductInput"
+        ).value.trim();
+
+      const company =
+        document.getElementById(
+          "demoCompany"
+        ).value.trim();
+
+      const company_size =
+        document.getElementById(
+          "demoCompanySize"
+        ).value;
+
+      const preferred_demo_time =
+        document.getElementById(
+          "demoPreferredTime"
+        ).value;
+
+      // BUTTON
+
+      const submitButton =
+        document.getElementById(
+          "demoSubmitButton"
+        );
+
+      // VALIDATION
+
+      if(
+        !name ||
+        !email ||
+        !phone ||
+        !product_interest
+      ){
+
+        alert(
+          "Please fill all required fields."
+        );
+
+        return;
+
+      }
+
+      try{
+
+        // LOADING
+
+        submitButton.disabled = true;
+
+        submitButton.innerHTML =
+          "Sending...";
+
+        // API REQUEST
+
+        const response = await fetch(
+          "/api/demo",
+          {
+            method:"POST",
+
+            headers:{
+              "Content-Type":
+              "application/json"
+            },
+
+            body:JSON.stringify({
+              name,
+              email,
+              phone,
+              product_interest,
+              company,
+              company_size,
+              preferred_demo_time
+            })
+          }
+        );
+
+        const data =
+          await response.json();
+
+        // SUCCESS
+
+        if(data.success){
+
+          alert(
+            "Demo booked successfully!"
+          );
+
+          // RESET FORM
+
+          demoForm.reset();
+
+          // CLOSE MODAL
+
+          closeDemoModal();
+
+        }else{
+
+          alert(
+            data.error ||
+            "Something went wrong."
+          );
+
+        }
+
+      }catch(error){
+
+        alert(
+          "Server error. Please try again."
+        );
+
+      }finally{
+
+        submitButton.disabled = false;
+
+        submitButton.innerHTML = `
+          <i data-lucide="send"></i>
+          BOOK DEMO
+        `;
+
+        lucide.createIcons();
+
+      }
+
+    }
+  );
+
+}
