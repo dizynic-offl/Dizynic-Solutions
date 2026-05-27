@@ -70,9 +70,9 @@ export default async function handler(req, res) {
 
     await resend.emails.send({
 
-      from: "onboarding@resend.dev",
+      from: "Acme <onboarding@resend.dev>",
 
-      to: "bssuraj2@gmail.com",
+      to: "dizynic@gmail.com",
 
       subject: "New Contact Form Submission",
 
