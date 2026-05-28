@@ -932,6 +932,11 @@ if(whitepaperForm){
           "whitepaperEmployeeCount"
         ).value;
 
+        const product =
+        document.getElementById(
+          "whitepaperProduct"
+        ).value;
+
       // BUTTON
 
       const submitButton =
@@ -981,7 +986,8 @@ if(whitepaperForm){
               email,
               phone,
               company,
-              employee_count
+              employee_count,
+              product
             })
           }
         );

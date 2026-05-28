@@ -31,7 +31,8 @@ export default async function handler(req, res) {
     email,
     phone,
     company,
-    employee_count
+    employee_count,
+    product
     } = req.body;
 
     // BASIC VALIDATION
@@ -58,7 +59,8 @@ export default async function handler(req, res) {
         email,
         phone,
         company,
-        employee_count
+        employee_count,
+        product
         }
       ]);
 
@@ -88,6 +90,8 @@ export default async function handler(req, res) {
         <p><strong>Phone:</strong> ${phone}</p>
 
         <p><strong>Company:</strong> ${company}</p>
+
+        <p><strong>Product:</strong> ${product}</p>
 
         <p><strong>Employee Count:</strong> ${employee_count}</p>
         `
