@@ -661,9 +661,12 @@ if(projectForm){
 
         if(data.success){
 
-          alert(
-            "Project request submitted successfully!"
-          );
+          const successMessage =
+            currentFormMode === "consultation"
+              ? "Consultation request submitted successfully!"
+              : "Project request submitted successfully!";
+
+          alert(successMessage);
 
           // RESET FORM
 
