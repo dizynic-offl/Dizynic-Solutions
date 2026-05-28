@@ -308,6 +308,13 @@ if(whitepaperModal && whitepaperTriggers.length){
       const whitepaperName =
         trigger.dataset.whitepaper;
 
+      const product =
+        trigger.dataset.product;
+
+      document.getElementById(
+        "whitepaperProduct"
+      ).value = product;
+
       if(whitepaperTitle && whitepaperName){
 
         whitepaperTitle.textContent =
