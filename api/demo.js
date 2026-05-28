@@ -38,7 +38,12 @@ export default async function handler(req, res) {
 
     // BASIC VALIDATION
 
-    if (!name || !email || !message) {
+    if (
+    !name ||
+    !email ||
+    !phone ||
+    !product_interest
+    ) {
 
       return res.status(400).json({
         error: "Required fields missing"
