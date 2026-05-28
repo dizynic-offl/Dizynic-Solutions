@@ -879,3 +879,161 @@ if(demoForm){
   );
 
 }
+
+
+
+
+
+
+
+// =========================================
+// WHITEPAPER FORM SUBMISSION
+// =========================================
+
+const whitepaperForm =
+  document.getElementById(
+    "whitepaperForm"
+  );
+
+if(whitepaperForm){
+
+  whitepaperForm.addEventListener(
+    "submit",
+    async (e)=>{
+
+      // STOP PAGE REFRESH
+
+      e.preventDefault();
+
+      // GET VALUES
+
+      const name =
+        document.getElementById(
+          "whitepaperName"
+        ).value.trim();
+
+      const email =
+        document.getElementById(
+          "whitepaperEmail"
+        ).value.trim();
+
+      const phone =
+        document.getElementById(
+          "whitepaperPhone"
+        ).value.trim();
+
+      const company =
+        document.getElementById(
+          "whitepaperCompany"
+        ).value.trim();
+
+      const employee_count =
+        document.getElementById(
+          "whitepaperEmployeeCount"
+        ).value;
+
+      // BUTTON
+
+      const submitButton =
+        document.getElementById(
+          "whitepaperSubmitButton"
+        );
+
+      // VALIDATION
+
+      if(
+        !name ||
+        !email ||
+        !phone
+      ){
+
+        alert(
+          "Please fill all required fields."
+        );
+
+        return;
+
+      }
+
+      try{
+
+        // LOADING
+
+        submitButton.disabled = true;
+
+        submitButton.innerHTML =
+          "Sending...";
+
+        // API REQUEST
+
+        const response = await fetch(
+          "/api/whitepaper",
+          {
+            method:"POST",
+
+            headers:{
+              "Content-Type":
+              "application/json"
+            },
+
+            body:JSON.stringify({
+              name,
+              email,
+              phone,
+              company,
+              employee_count
+            })
+          }
+        );
+
+        const data =
+          await response.json();
+
+        // SUCCESS
+
+        if(data.success){
+
+          alert(
+            "Whitepaper request submitted successfully!"
+          );
+
+          // RESET FORM
+
+          whitepaperForm.reset();
+
+          // CLOSE MODAL
+
+          closeWhitepaperModal();
+
+        }else{
+
+          alert(
+            data.error ||
+            "Something went wrong."
+          );
+
+        }
+
+      }catch(error){
+
+        alert(
+          "Server error. Please try again."
+        );
+
+      }finally{
+
+        submitButton.disabled = false;
+
+        submitButton.innerHTML = `
+          <i data-lucide="download"></i>
+          DOWNLOAD WHITEPAPER
+        `;
+
+        lucide.createIcons();
+
+      }
+
+    }
+  );
+
+}
